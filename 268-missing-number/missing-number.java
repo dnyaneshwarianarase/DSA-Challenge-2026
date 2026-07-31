@@ -1,13 +1,22 @@
 import java.util.*;
 class Solution {
     public int missingNumber(int[] nums) {
-        int n=nums.length;
-        int sum=0;
-        sum=n*(n+1)/2;
-        int s=0;
-        for(int i=0;i<n;i++){
-            s+=nums[i];
+        Arrays.sort(nums);
+        int left = 0;
+        int right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+
+            if (nums[mid] == mid) {
+                // Missing number is on the right
+                left = mid + 1;
+            } else {
+                // Missing number is on the left
+                right = mid - 1;
+            }
         }
-        return sum-s; 
+
+        return left;
     }
 }
